@@ -22,5 +22,4 @@ public class ApplicationTest {
 		String[] args = new String[0];
 		Mockito.verify(app).main(args);
 	}
-
 }
