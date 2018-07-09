@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.villanova.csc.health.config;
+package edu.villanova.csc.config;
 
 /**
  * @author natew

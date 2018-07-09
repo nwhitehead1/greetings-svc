@@ -1,4 +1,4 @@
-package edu.villanova.csc.health.config;
+package edu.villanova.csc.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +9,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan("edu.villanova.csc")
-public class HealthConfig {
+public class ApplicationConfig {
 
 }

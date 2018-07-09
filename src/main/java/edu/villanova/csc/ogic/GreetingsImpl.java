@@ -1,12 +1,12 @@
 /**
  * 
  */
-package edu.villanova.csc.health.logic;
+package edu.villanova.csc.ogic;
 
 import org.springframework.stereotype.Component;
 
-import edu.villanova.csc.health.dto.GreetingModel;
-import edu.villanova.csc.health.logic.interfaces.Greetings;
+import edu.villanova.csc.dto.GreetingModel;
+import edu.villanova.csc.logic.interfaces.Greetings;
 
 /**
  * @author natew

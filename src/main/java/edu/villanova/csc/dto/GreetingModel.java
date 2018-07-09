@@ -1,4 +1,4 @@
-package edu.villanova.csc.health.dto;
+package edu.villanova.csc.dto;
 
 public class GreetingModel {
 

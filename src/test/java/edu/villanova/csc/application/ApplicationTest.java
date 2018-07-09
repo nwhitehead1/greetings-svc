@@ -1,4 +1,4 @@
-package edu.villanova.csc.health;
+package edu.villanova.csc.application;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,11 +7,10 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import edu.villanova.csc.health.application.Application;
-import edu.villanova.csc.health.config.HealthConfig;
+import edu.villanova.csc.config.ApplicationConfig;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { Application.class, HealthConfig.class })
+@SpringBootTest(classes = { Application.class, ApplicationConfig.class })
 public class ApplicationTest {
 	
 	@Mock

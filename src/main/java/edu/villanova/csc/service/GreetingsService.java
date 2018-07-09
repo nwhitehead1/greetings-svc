@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.villanova.csc.health.service;
+package edu.villanova.csc.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import edu.villanova.csc.health.dto.GreetingModel;
-import edu.villanova.csc.health.logic.interfaces.Greetings;
+import edu.villanova.csc.dto.GreetingModel;
+import edu.villanova.csc.logic.interfaces.Greetings;
 
 /**
  * @author natew

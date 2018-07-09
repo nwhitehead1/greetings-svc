@@ -1,9 +1,9 @@
 /**
  * 
  */
-package edu.villanova.csc.health.logic.interfaces;
+package edu.villanova.csc.logic.interfaces;
 
-import edu.villanova.csc.health.dto.GreetingModel;
+import edu.villanova.csc.dto.GreetingModel;
 
 /**
  * @author natew
