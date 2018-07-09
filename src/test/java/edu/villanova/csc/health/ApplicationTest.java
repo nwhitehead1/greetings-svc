@@ -7,8 +7,11 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import edu.villanova.csc.health.application.Application;
+import edu.villanova.csc.health.config.HealthConfig;
+
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = { Application.class, HealthConfig.class })
 public class ApplicationTest {
 	
 	@Mock
