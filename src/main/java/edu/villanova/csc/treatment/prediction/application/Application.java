@@ -1,14 +1,12 @@
-package edu.villanova.csc.application;
+package edu.villanova.csc.treatment.prediction.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
-import edu.villanova.csc.config.ApplicationConfig;
+import edu.villanova.csc.treatment.prediction.config.ApplicationConfig;
 
 @SpringBootApplication
-@ComponentScan("edu.villanova.csc")
 @Import(ApplicationConfig.class)
 public class Application {
 

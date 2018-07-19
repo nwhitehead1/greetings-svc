@@ -1,4 +1,4 @@
-package edu.villanova.csc.config;
+package edu.villanova.csc.treatment.prediction.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  *
  */
 @Configuration
-@ComponentScan("edu.villanova.csc")
+@ComponentScan("edu.villanova.csc.treatment.prediction")
 public class ApplicationConfig {
 
 }

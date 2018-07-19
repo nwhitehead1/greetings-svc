@@ -1,4 +1,4 @@
-package edu.villanova.csc.application;
+package edu.villanova.csc.treatment.prediction.application;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,8 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import edu.villanova.csc.config.ApplicationConfig;
+import edu.villanova.csc.treatment.prediction.application.Application;
+import edu.villanova.csc.treatment.prediction.config.ApplicationConfig;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { Application.class, ApplicationConfig.class })

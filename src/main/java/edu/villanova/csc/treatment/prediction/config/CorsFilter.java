@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.villanova.csc.config;
+package edu.villanova.csc.treatment.prediction.config;
 
 /**
  * @author natew
