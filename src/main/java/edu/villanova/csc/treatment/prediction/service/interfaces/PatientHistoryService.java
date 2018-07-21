@@ -2,6 +2,8 @@ package edu.villanova.csc.treatment.prediction.service.interfaces;
 
 import java.util.List;
 
+import org.springframework.web.client.RestClientException;
+
 import edu.villanova.csc.treatment.prediction.entity.PatientHistoryEntity;
 
 /**
@@ -9,8 +11,8 @@ import edu.villanova.csc.treatment.prediction.entity.PatientHistoryEntity;
  *
  */
 public interface PatientHistoryService {
-
-	public PatientHistoryEntity addNewSession(PatientHistoryEntity patientHistoryEntity);
 	
-	public List<PatientHistoryEntity> getPatientHistory(Integer patientId);
+	public List<PatientHistoryEntity> getAllPatientHistoryById(Integer patientId);
+	
+	public PatientHistoryEntity addNewPatientHistorySession(Integer patientId, PatientHistoryEntity patientHistory) throws RestClientException;
 }

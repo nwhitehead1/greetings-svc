@@ -21,7 +21,7 @@ public class PatientEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer patientId;
+	private Integer id;
 	private String firstName;
 	private String lastName;
 	@Enumerated(EnumType.STRING)
@@ -31,20 +31,12 @@ public class PatientEntity {
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss a")
 	private LocalDateTime patientCreationTimestamp;
 
-	public LocalDateTime getPatientCreationTimestamp() {
-		return patientCreationTimestamp;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setPatientCreationTimestamp(LocalDateTime patientCreationTimestamp) {
-		this.patientCreationTimestamp = patientCreationTimestamp;
-	}
-
-	public Integer getPatientId() {
-		return patientId;
-	}
-
-	public void setPatientId(Integer patientId) {
-		this.patientId = patientId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -78,4 +70,13 @@ public class PatientEntity {
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+
+	public LocalDateTime getPatientCreationTimestamp() {
+		return patientCreationTimestamp;
+	}
+
+	public void setPatientCreationTimestamp(LocalDateTime patientCreationTimestamp) {
+		this.patientCreationTimestamp = patientCreationTimestamp;
+	}
+
 }

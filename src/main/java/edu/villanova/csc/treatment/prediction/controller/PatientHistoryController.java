@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestClientException;
 
 import edu.villanova.csc.treatment.prediction.entity.PatientHistoryEntity;
 import edu.villanova.csc.treatment.prediction.service.interfaces.PatientHistoryService;
@@ -30,13 +31,14 @@ public class PatientHistoryController {
 	@Autowired
 	private PatientHistoryService patientHistoryService;
 	
-	@GetMapping(path="/{patientId}")
-	public @ResponseBody List<PatientHistoryEntity> getAllPatients(@PathVariable(value="patientId") Integer id) {
-		return patientHistoryService.getPatientHistory(id);
+	@GetMapping(path="getById/{patientId}")
+	public @ResponseBody List<PatientHistoryEntity> getPatientHistoryByPatientId(@PathVariable(value="patientId") Integer patientId) {
+		return patientHistoryService.getAllPatientHistoryById(patientId);
 	}
 	
-	@PostMapping(path="addSession")
-	public @ResponseBody PatientHistoryEntity addPatientSession(@RequestBody PatientHistoryEntity patientHistory)  {
-		return patientHistoryService.addNewSession(patientHistory);
+	@PostMapping(path = "createSession/{patientId}")
+	public @ResponseBody PatientHistoryEntity addSession(@PathVariable(value="patientId") Integer patientId, 
+														@RequestBody PatientHistoryEntity patientHistory) throws RestClientException  {
+		return patientHistoryService.addNewPatientHistorySession(patientId, patientHistory);
 	}
 }

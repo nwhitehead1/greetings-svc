@@ -19,5 +19,7 @@ public interface PatientService {
 	
 	public PatientEntity getPatientById(Integer patientId);
 	
-	// DELETE AND UPDATE PATIENT INFO
+	public PatientEntity updatePatient(Integer patientId, PatientEntity request);
+	
+	public String  deletePatient(Integer patientId);
 }

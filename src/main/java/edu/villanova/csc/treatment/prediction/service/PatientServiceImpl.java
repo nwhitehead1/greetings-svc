@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.villanova.csc.treatment.prediction.entity.PatientEntity;
+import edu.villanova.csc.treatment.prediction.exception.ResourceNotFoundException;
 import edu.villanova.csc.treatment.prediction.repository.PatientRepository;
 import edu.villanova.csc.treatment.prediction.service.interfaces.PatientService;
 
@@ -33,11 +34,32 @@ class PatientServiceImpl implements PatientService {
 	public PatientEntity addPatient(PatientEntity patient) {
 		patient.setPatientCreationTimestamp(LocalDateTime.now());
 		return patientRepository.saveAndFlush(patient);
+		
 	}
 
 	@Override
 	public PatientEntity getPatientById(Integer patientId) {
-		Optional<PatientEntity> patientEntity = patientRepository.findById(patientId);
-		return patientEntity.isPresent() ? patientEntity.get() : null;
+		return Optional.ofNullable(patientRepository.findById(patientId))
+				.get()
+				.orElseThrow(() -> new ResourceNotFoundException("Patient ID: " + patientId + " not found."));
+	}
+
+	@Override
+	public String deletePatient(Integer patientId) {
+		return Optional.ofNullable(patientRepository.findById(patientId)).get().map(patient -> {
+			patientRepository.delete(patient);
+			return "Successfully deleted patient " + patientId;
+		}).orElseThrow(() -> new ResourceNotFoundException("Patient ID: " + patientId + " not found."));
+	}
+
+	@Override
+	public PatientEntity updatePatient(Integer patientId, PatientEntity request) {		
+		return Optional.ofNullable(patientRepository.findById(patientId)).get().map(patient -> {
+			patient.setFirstName(request.getFirstName());
+			patient.setLastName(request.getLastName());
+			patient.setGender(request.getGender());
+			patient.setDateOfBirth(request.getDateOfBirth());
+			return patientRepository.saveAndFlush(patient);
+		}).orElseThrow(() -> new ResourceNotFoundException("Patient ID: " + patientId + " not found."));
 	}
 }
