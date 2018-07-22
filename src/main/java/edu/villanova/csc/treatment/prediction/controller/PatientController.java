@@ -10,11 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.villanova.csc.treatment.prediction.entity.PatientEntity;
@@ -37,8 +37,8 @@ public class PatientController {
 		return patientService.getAllPatients();
 	}
 	
-	@GetMapping(path="get/{patientId}")
-	public @ResponseBody PatientEntity getPatientById(@PathVariable(value="patientId") Integer patientId)  {
+	@GetMapping(path="get")
+	public @ResponseBody PatientEntity getPatientById(@RequestParam("patientId") Integer patientId)  {
 		return patientService.getPatientById(patientId);
 	}
 	
@@ -47,13 +47,13 @@ public class PatientController {
 		return patientService.addPatient(patient);
 	}
 	
-	@DeleteMapping(path="delete/{patientId}")
-	public @ResponseBody String deletePatient(@PathVariable(value="patientId") Integer patientId)  {
+	@DeleteMapping(path="delete")
+	public @ResponseBody String deletePatient(@RequestParam("patientId") Integer patientId)  {
 		return patientService.deletePatient(patientId);
 	}
 	
-	@PutMapping(path="update/{patientId}")
-	public @ResponseBody PatientEntity updatePatient(@PathVariable(value="patientId") Integer patientId, @RequestBody PatientEntity request)  {
+	@PutMapping(path="update")
+	public @ResponseBody PatientEntity updatePatient(@RequestParam("patientId") Integer patientId, @RequestBody PatientEntity request)  {
 		return patientService.updatePatient(patientId, request);
 	}
 }
