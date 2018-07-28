@@ -1,8 +1,8 @@
-# greetings-svc
-Sample Webservice
+# health-svc
+Welcome to the Treatment Prediction Webservice.
 
-In order to run, move to project directory, enter the following
+In order to run, change to project directory, enter the following
 
 $ mvn spring-boot:run
 
-The app will be running on http://localhost:8080/home (base path is configurable in app properties)
+The app will be running on http://localhost:8080/
