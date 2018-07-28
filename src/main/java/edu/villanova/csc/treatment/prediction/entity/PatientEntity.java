@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import edu.villanova.csc.treatment.prediction.enums.Diagnosis;
 import edu.villanova.csc.treatment.prediction.enums.Gender;
 
 @Entity
@@ -30,9 +31,28 @@ public class PatientEntity {
 	private LocalDate dateOfBirth;
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss a")
 	private LocalDateTime patientCreationTimestamp;
+	private Diagnosis finalDiagnosis;
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss a")
+	private LocalDateTime finalDiagnosisTimestamp;
 
 	public Integer getId() {
 		return id;
+	}
+
+	public Diagnosis getFinalDiagnosis() {
+		return finalDiagnosis;
+	}
+
+	public void setFinalDiagnosis(Diagnosis finalDiagnosis) {
+		this.finalDiagnosis = finalDiagnosis;
+	}
+
+	public LocalDateTime getFinalDiagnosisTimestamp() {
+		return finalDiagnosisTimestamp;
+	}
+
+	public void setFinalDiagnosisTimestamp(LocalDateTime finalDiagnosisTimestamp) {
+		this.finalDiagnosisTimestamp = finalDiagnosisTimestamp;
 	}
 
 	public void setId(Integer id) {

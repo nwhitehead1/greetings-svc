@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.villanova.csc.treatment.prediction.entity.PatientEntity;
+import edu.villanova.csc.treatment.prediction.enums.Diagnosis;
 import edu.villanova.csc.treatment.prediction.service.interfaces.PatientService;
 
 /**
@@ -52,8 +52,8 @@ public class PatientController {
 		return patientService.deletePatient(patientId);
 	}
 	
-	@PutMapping(path="update")
-	public @ResponseBody PatientEntity updatePatient(@RequestParam("patientId") Integer patientId, @RequestBody PatientEntity request)  {
-		return patientService.updatePatient(patientId, request);
+	@GetMapping(path="update")
+	public @ResponseBody PatientEntity updatePatientFinalDiagnosis(@RequestParam("patientId") Integer patientId, @RequestParam("diagnosis") String finalDiagnosis)  {
+		return patientService.updateFinalDiagnosis(patientId, Diagnosis.valueOf(finalDiagnosis));
 	}
 }

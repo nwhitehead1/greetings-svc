@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +22,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import edu.villanova.csc.treatment.prediction.enums.Diagnosis;
+
 @Entity
 @Table(name = "patient_history")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
@@ -29,15 +33,18 @@ public class PatientHistoryEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "patient_id", nullable = false)
+	@JoinColumn(name = "patient_history_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private PatientEntity patient;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private UWDataEntity data;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private ModelEntity model;
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss a")
-	private LocalDateTime measurementTimestamp;
-	private String predictedDiagnosis;
+	private LocalDateTime dateOfMeasurement;
+	@Enumerated(EnumType.STRING)
+	private Diagnosis predictedDiagnosis;
 	private String comments;
 
 	public String getComments() {
@@ -46,6 +53,22 @@ public class PatientHistoryEntity {
 
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+
+	public ModelEntity getModel() {
+		return model;
+	}
+
+	public void setModel(ModelEntity model) {
+		this.model = model;
+	}
+
+	public UWDataEntity getData() {
+		return data;
+	}
+
+	public void setData(UWDataEntity data) {
+		this.data = data;
 	}
 
 	public Integer getId() {
@@ -64,27 +87,19 @@ public class PatientHistoryEntity {
 		this.patient = patient;
 	}
 
-	public UWDataEntity getData() {
-		return data;
+	public LocalDateTime getDateOfMeasurement() {
+		return dateOfMeasurement;
 	}
 
-	public void setData(UWDataEntity data) {
-		this.data = data;
+	public void setDateOfMeasurement(LocalDateTime dateOfMeasurement) {
+		this.dateOfMeasurement = dateOfMeasurement;
 	}
 
-	public LocalDateTime getMeasurementTimestamp() {
-		return measurementTimestamp;
-	}
-
-	public void setMeasurementTimestamp(LocalDateTime measurementTimestamp) {
-		this.measurementTimestamp = measurementTimestamp;
-	}
-
-	public String getPredictedDiagnosis() {
+	public Diagnosis getPredictedDiagnosis() {
 		return predictedDiagnosis;
 	}
 
-	public void setPredictedDiagnosis(String predictedDiagnosis) {
+	public void setPredictedDiagnosis(Diagnosis predictedDiagnosis) {
 		this.predictedDiagnosis = predictedDiagnosis;
 	}
 

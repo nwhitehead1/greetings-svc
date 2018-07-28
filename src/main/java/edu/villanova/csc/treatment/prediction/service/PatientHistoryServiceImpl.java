@@ -14,11 +14,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import edu.villanova.csc.treatment.prediction.entity.ModelEntity;
 import edu.villanova.csc.treatment.prediction.entity.PatientHistoryEntity;
+import edu.villanova.csc.treatment.prediction.entity.UWDataEntity;
+import edu.villanova.csc.treatment.prediction.enums.Diagnosis;
 import edu.villanova.csc.treatment.prediction.exception.ResourceNotFoundException;
 import edu.villanova.csc.treatment.prediction.repository.PatientHistoryRepository;
 import edu.villanova.csc.treatment.prediction.repository.PatientRepository;
-import edu.villanova.csc.treatment.prediction.rest.Prediction;
+import edu.villanova.csc.treatment.prediction.rest.RequestPrediction;
+import edu.villanova.csc.treatment.prediction.rest.ResponsePrediction;
 import edu.villanova.csc.treatment.prediction.service.interfaces.PatientHistoryService;
 
 /**
@@ -34,7 +38,7 @@ class PatientHistoryServiceImpl implements PatientHistoryService {
 	@Autowired
 	private PatientRepository patientRepository;
 	
-	private static final String predictionUri = "http://localhost:5000/prediction";
+	private static final String predictionUri = "http://localhost:5000/test";
 	
 	@Override
 	public List<PatientHistoryEntity> getAllPatientHistoryById(Integer patientId) {
@@ -42,25 +46,29 @@ class PatientHistoryServiceImpl implements PatientHistoryService {
 			return patientHistoryRepository.findByPatientId(patientId);
 		}).orElseThrow(() -> new ResourceNotFoundException("Patient ID: " + patientId + " not found."));
 	}
-
+	
 	@Override
 	public PatientHistoryEntity addNewPatientHistorySession(Integer patientId, PatientHistoryEntity patientHistory) throws RestClientException {
-		// Pass data to Python service
-		RestTemplate restTemplate = new RestTemplate();
-		Prediction prediction;
-		try {
-			prediction = restTemplate.postForObject(new URI(predictionUri), patientHistory.getData(), Prediction.class);
-		} catch (URISyntaxException e) {
-			throw new ResourceNotFoundException("Resource not found: " + predictionUri);
-		}		
-		// Store prediction + comment information
 		return Optional.ofNullable(patientRepository.findById(patientId)).get().map(patient -> {
 			patientHistory.setPatient(patient);
-			patientHistory.setMeasurementTimestamp(LocalDateTime.now());
-			patientHistory.setPredictedDiagnosis(prediction.getPrediction());
-			patientHistory.setComments(patientHistory.getComments());
+			patientHistory.setDateOfMeasurement(LocalDateTime.now());
+			patientHistory.setPredictedDiagnosis(getPredictionDiagnosis(patientHistory.getData(), patientHistory.getModel()));
 			patientHistoryRepository.saveAndFlush(patientHistory);
 			return patientHistory;
 		}).orElseThrow(() -> new ResourceNotFoundException("Patient ID: " + patientId + " not found."));
+	}
+	
+	private Diagnosis getPredictionDiagnosis(UWDataEntity data, ModelEntity model)  {
+		RestTemplate restTemplate = new RestTemplate();
+		ResponsePrediction response;
+		RequestPrediction request = new RequestPrediction();
+		request.setData(data);
+		request.setModel(model);
+		try {
+			response = restTemplate.postForObject(new URI(predictionUri), request, ResponsePrediction.class);
+		} catch (RestClientException | URISyntaxException e) {
+			throw new ResourceNotFoundException("Prediction webservice is down!");
+		}
+		return response.getPrediction();
 	}
 }

@@ -6,6 +6,7 @@ package edu.villanova.csc.treatment.prediction.service.interfaces;
 import java.util.List;
 
 import edu.villanova.csc.treatment.prediction.entity.PatientEntity;
+import edu.villanova.csc.treatment.prediction.enums.Diagnosis;
 
 /**
  * @author natew
@@ -19,7 +20,7 @@ public interface PatientService {
 	
 	public PatientEntity getPatientById(Integer patientId);
 	
-	public PatientEntity updatePatient(Integer patientId, PatientEntity request);
+	public PatientEntity updateFinalDiagnosis(Integer patientId, Diagnosis finalDiagnosis);
 	
-	public String  deletePatient(Integer patientId);
+	public String deletePatient(Integer patientId);	
 }

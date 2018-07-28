@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.villanova.csc.treatment.prediction.entity.PatientEntity;
+import edu.villanova.csc.treatment.prediction.enums.Diagnosis;
 import edu.villanova.csc.treatment.prediction.exception.ResourceNotFoundException;
 import edu.villanova.csc.treatment.prediction.repository.PatientRepository;
 import edu.villanova.csc.treatment.prediction.service.interfaces.PatientService;
@@ -53,12 +54,10 @@ class PatientServiceImpl implements PatientService {
 	}
 
 	@Override
-	public PatientEntity updatePatient(Integer patientId, PatientEntity request) {		
+	public PatientEntity updateFinalDiagnosis(Integer patientId, Diagnosis finalDiagnosis) {		
 		return Optional.ofNullable(patientRepository.findById(patientId)).get().map(patient -> {
-			patient.setFirstName(request.getFirstName());
-			patient.setLastName(request.getLastName());
-			patient.setGender(request.getGender());
-			patient.setDateOfBirth(request.getDateOfBirth());
+			patient.setFinalDiagnosis(finalDiagnosis);
+			patient.setFinalDiagnosisTimestamp(LocalDateTime.now());
 			return patientRepository.saveAndFlush(patient);
 		}).orElseThrow(() -> new ResourceNotFoundException("Patient ID: " + patientId + " not found."));
 	}

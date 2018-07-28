@@ -5,20 +5,22 @@ package edu.villanova.csc.treatment.prediction.rest;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import edu.villanova.csc.treatment.prediction.enums.Diagnosis;
+
 /**
  * @author natew
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Prediction {
+public class ResponsePrediction {
 
-	private String prediction;
+	private Diagnosis prediction;
 
-	public String getPrediction() {
+	public Diagnosis getPrediction() {
 		return prediction;
 	}
 
-	public void setPrediction(String prediction) {
+	public void setPrediction(Diagnosis prediction) {
 		this.prediction = prediction;
 	}
 
